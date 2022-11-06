@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{4CDD5303-D84B-404A-A4FB-FF69118FF6DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{B1237638-D664-4CE3-BAF6-39A7B7A0DD13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CDD5303-D84B-404A-A4FB-FF69118FF6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDD5303-D84B-404A-A4FB-FF69118FF6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDD5303-D84B-404A-A4FB-FF69118FF6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDD5303-D84B-404A-A4FB-FF69118FF6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1237638-D664-4CE3-BAF6-39A7B7A0DD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1237638-D664-4CE3-BAF6-39A7B7A0DD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1237638-D664-4CE3-BAF6-39A7B7A0DD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1237638-D664-4CE3-BAF6-39A7B7A0DD13}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
