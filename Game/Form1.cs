@@ -41,79 +41,79 @@ namespace Game
             TimeSalto.Start(); //Se incia el Timer que controla el Salto de los Jugadores
         }
 
-        private void timer1_Tick(object sender, EventArgs e)//Timer que Controla el Player2, cada segundo.
+        private void timer1_Tick(object sender, EventArgs e)//Evento Timer que Controla el Player2, cada segundo.
         {
-            switch (c2.Consulta())//Realiza la consulta a la Tabla del Player2 y retorna la accion que realiza
+            switch (c2.Consulta()) //Realiza la consulta a la Tabla del Player2 y retorna la accion que realiza
             {
                 case "Salta": s2 = true; //Si SALTA, Cambia el valor del salto
-                    break;
+                    break; //se rompe el ciclo
                 case "Izquierda": //Si se mueve a la izquierda
                     int izq = Player2.Location.X + 10; //Se guarda el valor de X del Player2 y se suma 10 para su movimiento a la izquierda
                     Player2.Location = new Point(izq, Player2.Location.Y); //Se le agrega la nueva posicion al Player2
                     if (Cder2 > 14) //Si el valor de la imagen es mayor a 14
                     {
                         Cder2 = 11; //Se cambia el valor de la imagen a la principal
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png")); //Se actualiza la imagen el Player2
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png")); //Se actualiza la imagen del Player2
                         this.Refresh(); //Se realiza una actualizacion de la superficie
                     }
+                    else //Si la condicion es falsa, entonces el valor de las imagenes es menor a 14
+                    {
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png")); //Se actualiza la imagen del Player2
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
+                    }
+                    Cder2++; //Aumenta el valor de las imagenes (Para que camine)
+                    break; //Se rompe el ciclo
+                case "Derecha": //Si se mueve a la derecha
+                    int der = Player2.Location.X - 10; //Se guarda el valor de X del Player2 y se resta 10 para su movimiento a la derecha
+                    Player2.Location = new Point(der, Player2.Location.Y); //Se le agrega la nueva posicion al Player2
+                    if (Cder2 > 14) //Si el valor de la imagen es mayor a 14
+                    {
+                        Cder2 = 11; //Se cambia el valor de la imagen a la principal
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png")); //Se actualiza la imagen del Player2
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
+                    }
                     else
                     {
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png"));
-                        this.Refresh();
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png")); //Se actualiza la imagen del Player2
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
                     }
-                    Cder2++;
-                    break;
-                case "Derecha":
-                    int der = Player2.Location.X - 10;
-                    Player2.Location = new Point(der, Player2.Location.Y);
-                    if (Cder2 > 14)
+                    Cder2++; //Aumenta el valor de las imagenes (Para que camine)
+                    break; //Se rompe el ciclo
+                case "Agacha": //Si se agacha
+                    alA = Player2.Size.Height; //Se Actualiza el valor de alA, con la altura actual del Player2
+                    Player2.Size = new Size(Player2.Size.Width, 60); //Se actuliza el nevo tamaño del Player2
+                    Player2.Location = new Point(Player2.Location.X, 386); //Se actualiza la posicion del Player para que se baje.
+                    Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im13.png")); //Se actualiza la Imagen del Player2 (Imagen Agachar)
+                    this.Refresh(); //Se realiza la actualizacion de la superficie
+                    break; //Se rompe el ciclo
+                case "Disparar": //Si se Dispara
+                    pro2 = new Proyectil2(this, Player2.Location.X, Player2.Location.Y); //Se termmina de declara el Proyectil
+                    Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im16.png")); //Se actualiza la Imagen del Player2 (Imagen Disparo)
+                    this.Refresh(); //Se realiza la actualizacion de la superficie
+                    break; //Se rompe el ciclo
+                default: //Accion default
+                    if (Player2.Size.Height == 60 || Player1.Size.Height == 60) //Si la altura del Player2 y Player1 == 60
                     {
-                        Cder2 = 11;
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png"));
-                        this.Refresh();
+                        Player2.Size = new Size(69, 120); //Se actualiza el tamaño por defecto de Player2
+                        Player2.Location = new Point(Player2.Location.X, 326); //Se Actualiza la ubicacion del Player2
+                        Player1.Size = new Size(69, 120); //Se actualiza el tamaña por defecto de Player1
+                        Player1.Location = new Point(Player1.Location.X, 326); //Se actualiza la ubicacion del Player1
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im11.png")); //Se actualiza la imagen del Player2 (Imagen default)
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
                     }
-                    else
-                    {
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png"));
-                        this.Refresh();
-                    }
-                    Cder2++;
-                    break;
-                case "Agacha":
-                    alA = Player2.Size.Height;
-                    Player2.Size = new Size(Player2.Size.Width, 60);
-                    Player2.Location = new Point(Player2.Location.X, 386);
-                    Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im13.png"));
-                    this.Refresh();
-                    break;
-                case "Disparar":
-                    pro2 = new Proyectil2(this, Player2.Location.X, Player2.Location.Y);
-                    Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im16.png"));
-                    this.Refresh();
-                    break;
-                default:
-                    if (Player2.Size.Height == 60 || Player1.Size.Height == 60)
-                    {
-                        Player2.Size = new Size(69, 120);
-                        Player2.Location = new Point(Player2.Location.X, 326);
-                        Player1.Size = new Size(69, 120);
-                        Player1.Location = new Point(Player1.Location.X, 326);
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im11.png"));
-                        this.Refresh();
-                    }
-                    break;
+                    break; //Se rompe el ciclo
             }
-            c2.Delete();// brra la accion despues de usarla
+            c2.Delete();// Borra la accion de la tabla despues de usarla
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)//Controlar jugador 1
+        private void Form1_KeyDown(object sender, KeyEventArgs e) //Evento de Tecla que Controlar el Player1
         {
             mov = m.Player(sender, e);
             c.Insert(mov);
             switch (mov)
             {
                 case "Salta": s = true;
-                    break;
+                    break; //Se rompe el ciclo
                 case "Izquierda":
                     int izq = Player1.Location.X - 10;
                     Player1.Location = new Point(izq, Player1.Location.Y);
@@ -121,15 +121,15 @@ namespace Game
                     {
                         Cder = 2;
                         Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg" + Cder + ".png"));
-                        this.Refresh();
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
                     }
                     else
                     {
                         Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg" + Cder + ".png"));
-                        this.Refresh();
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
                     }
                     Cder++;
-                    break;
+                    break; //Se rompe el ciclo
                 case "Derecha":
                     int der = Player1.Location.X + 10;
                     Player1.Location = new Point(der, Player1.Location.Y);
@@ -137,34 +137,34 @@ namespace Game
                     {
                         Cder = 2;
                         Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg"+ Cder + ".png"));
-                        this.Refresh();
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
                     }
                     else
                     {
                         Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg" + Cder + ".png"));
-                        this.Refresh();
+                        this.Refresh(); //Se realiza la actualizacion de la superficie
                     }
                     Cder++;
-                    break;
+                    break; //Se rompe el ciclo
                 case "Agacha":
                     alA = Player1.Size.Height;
                     Player1.Size = new Size(Player1.Size.Width, 60);
                     Player1.Location = new Point(Player1.Location.X, 386);
                     Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\ag2.png"));
-                    this.Refresh();
-                    break;
+                    this.Refresh(); //Se realiza la actualizacion de la superficie
+                    break; //Se rompe el ciclo
                 case "Disparar":
                     Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg10.png"));
-                    this.Refresh();
+                    this.Refresh(); //Se realiza la actualizacion de la superficie
                     pro = new Proyectil(this, Player1.Location.X, Player1.Location.Y);
-                    break;
+                    break; //Se rompe el ciclo
                 default:
                     if (Player1.Size.Height == 60)
                     {
                         Player1.Size = new Size(26, 120);
                         Player1.Location = new Point(Player1.Location.X, 326);
                     }
-                    break;
+                    break; //Se rompe el ciclo
             }
         }
 
@@ -173,7 +173,7 @@ namespace Game
             // Temp -= 0.01;
             TimeL.Text = "Time: \n" + Temp;
             Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg1.png"));
-            this.Refresh();
+            this.Refresh(); //Se realiza la actualizacion de la superficie
         }
 
         public Rectangle RecPlayer1()//Rectangulo del jugador1
@@ -205,7 +205,7 @@ namespace Game
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg1.png"));
-            this.Refresh();
+            this.Refresh(); //Se realiza la actualizacion de la superficie
         }
 
         private void TimeSalto_Tick(object sender, EventArgs e)//hace saltar
