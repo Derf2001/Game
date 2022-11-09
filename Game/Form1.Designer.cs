@@ -34,12 +34,10 @@
             this.TimeL = new System.Windows.Forms.Label();
             this.TimeMov = new System.Windows.Forms.Timer(this.components);
             this.TimeTime = new System.Windows.Forms.Timer(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
             this.Fondo = new System.Windows.Forms.PictureBox();
             this.Player1 = new System.Windows.Forms.PictureBox();
             this.Player2 = new System.Windows.Forms.PictureBox();
             this.TimeSalto = new System.Windows.Forms.Timer(this.components);
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Fondo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player2)).BeginInit();
@@ -84,18 +82,10 @@
             this.TimeTime.Interval = 1000;
             this.TimeTime.Tick += new System.EventHandler(this.TimeTime_Tick);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.Fondo);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 479);
-            this.panel1.TabIndex = 5;
-            // 
             // Fondo
             // 
             this.Fondo.Image = global::Game.Properties.Resources.Fondo;
-            this.Fondo.Location = new System.Drawing.Point(0, 0);
+            this.Fondo.Location = new System.Drawing.Point(0, -1);
             this.Fondo.Name = "Fondo";
             this.Fondo.Size = new System.Drawing.Size(800, 479);
             this.Fondo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -138,12 +128,11 @@
             this.Controls.Add(this.Player2);
             this.Controls.Add(this.Vida1);
             this.Controls.Add(this.Vida2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.Fondo);
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Fondo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player2)).EndInit();
@@ -161,7 +150,6 @@
         private System.Windows.Forms.Label TimeL;
         private System.Windows.Forms.Timer TimeMov;
         private System.Windows.Forms.Timer TimeTime;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox Fondo;
         private System.Windows.Forms.Timer TimeSalto;
     }

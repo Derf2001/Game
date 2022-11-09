@@ -15,69 +15,50 @@ namespace Game
 {
     public partial class Form1 : Form
     {
-        
-        Conexion c = new Conexion("MIPC", "Player2", "Player1", "1234");
-        Conexion c2 = new Conexion("MIPC", "Player1", "Player2", "1234");
-        Movimiento m = new Movimiento();
-        Proyectil pro;
-        Proyectil2 pro2;
-        double Temp = 5.00;
-        int PosY = 326;
-        string mov = "";
-        int alA = 0;
-        int Cder = 2;
-        int Cder2 = 11;
-        bool s, s2= false;
+        //En "MIPC", se pone la direccion IP del servidor(BD)
+        //Para el jugador dos se invierte el Player1 y Player2, para que el Jugador 2 pueda mover su personaje
+        Conexion c = new Conexion("MIPC", "Player1", "Player1", "1234"); //Conexion al Player1
+        Conexion c2 = new Conexion("MIPC", "Player2", "Player2", "1234");//Conexion al Player2
+
+        Movimiento m = new Movimiento(); //Declaracion de la clase Movimiento de Logica.dll
+        Proyectil pro; //Declaracion del Proyectil del Player1
+        Proyectil2 pro2; //Declaracion del Proyectil del Player2
+        double Temp = 5.00; //Declaracion del temporizador de 5 min
+        string mov = ""; //Declaracion de la variable mov que va recibir el movimiento
+        int alA = 0; //Declaracion que va a recibir la Altura de los jugadores
+        int Cder = 2; //Declarion que va a recibir los valores para cambiar la imagen del Player1, (Hacer la animacion de caminar)
+        int Cder2 = 11; //Declarion que va a recibir los valores para cambiar la imagen del Player2, (Hacer la animacion de caminar)
+        bool s, s2= false; //Declarion para verificar si se realiza algun salto en Player1 y Player2
 
         public Form1()
         {
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false;
-            c.Conectar();
-            c2.Conectar();
-            TimeMov.Start();
-            TimeTime.Start();
-            TimeSalto.Start();
-            //Fondo.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\Fondo.gif"));
-
+            CheckForIllegalCrossThreadCalls = false; //verifica las llamadas a los hilos y deja que se ejecuten a la vez
+            c.Conectar(); //Realizamos la conexion para Player1
+            c2.Conectar(); //Realizamos la conexion para Player2
+            TimeMov.Start(); //Se inicia el Timer que controla el Player2
+            TimeTime.Start(); //Se inicia el Timer que cotrola el Tiempo
+            TimeSalto.Start(); //Se incia el Timer que controla el Salto de los Jugadores
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)//Timer que Controla el Player2, cada segundo.
         {
-            switch (c2.Consulta())
+            switch (c2.Consulta())//Realiza la consulta a la Tabla del Player2 y retorna la accion que realiza
             {
-                case "Salta": s2 = true;
-                    /*int salto = Player2.Location.Y - 10;
-                    Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im15.png"));
-                    this.Refresh();
-                    while (salto > 10)
-                    {
-                        Player2.Location = new Point(Player2.Location.X, salto);
-                        salto = Player2.Location.Y - 10;
-                        Console.WriteLine("subiendo");
-                        this.Refresh();
-                    }
-
-                    while (salto < posY)
-                    {
-                        Player2.Location = new Point(Player2.Location.X, salto);
-                        salto = Player2.Location.Y + 10;
-                        Console.WriteLine("bajando");
-                        this.Refresh();
-                    }*/
+                case "Salta": s2 = true; //Si SALTA, Cambia el valor del salto
                     break;
-                case "Izquierda":
-                    int izq = Player2.Location.X + 10;
-                    Player2.Location = new Point(izq, Player2.Location.Y);
-                    if (Cder2 > 14)
+                case "Izquierda": //Si se mueve a la izquierda
+                    int izq = Player2.Location.X + 10; //Se guarda el valor de X del Player2 y se suma 10 para su movimiento a la izquierda
+                    Player2.Location = new Point(izq, Player2.Location.Y); //Se le agrega la nueva posicion al Player2
+                    if (Cder2 > 14) //Si el valor de la imagen es mayor a 14
                     {
-                        Cder2 = 11;
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder + ".png"));
-                        this.Refresh();
+                        Cder2 = 11; //Se cambia el valor de la imagen a la principal
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png")); //Se actualiza la imagen el Player2
+                        this.Refresh(); //Se realiza una actualizacion de la superficie
                     }
                     else
                     {
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder + ".png"));
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png"));
                         this.Refresh();
                     }
                     Cder2++;
@@ -88,12 +69,12 @@ namespace Game
                     if (Cder2 > 14)
                     {
                         Cder2 = 11;
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder + ".png"));
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png"));
                         this.Refresh();
                     }
                     else
                     {
-                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder + ".png"));
+                        Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im" + Cder2 + ".png"));
                         this.Refresh();
                     }
                     Cder2++;
@@ -122,34 +103,16 @@ namespace Game
                     }
                     break;
             }
-            c2.Delete();
+            c2.Delete();// brra la accion despues de usarla
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)//Controlar jugador 1
         {
             mov = m.Player(sender, e);
             c.Insert(mov);
             switch (mov)
             {
                 case "Salta": s = true;
-                    /*int salto = Player1.Location.Y - 10;
-                    Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg2.png"));
-                    this.Refresh();
-                    while (salto > 10)
-                    {
-                        Player1.Location = new Point(Player1.Location.X, salto);
-                        salto = Player1.Location.Y - 10;
-                        Console.WriteLine("subiendo");
-                        this.Refresh();
-                    }
-
-                    while (salto < posY)
-                    {
-                        Player1.Location = new Point(Player1.Location.X, salto);
-                        salto = Player1.Location.Y + 10;
-                        Console.WriteLine("bajando");
-                        this.Refresh();
-                    }*/
                     break;
                 case "Izquierda":
                     int izq = Player1.Location.X - 10;
@@ -200,14 +163,12 @@ namespace Game
                     {
                         Player1.Size = new Size(26, 120);
                         Player1.Location = new Point(Player1.Location.X, 326);
-                        /*Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg1.png"));
-                        this.Refresh();*/
                     }
                     break;
             }
         }
 
-        private void TimeTime_Tick(object sender, EventArgs e)
+        private void TimeTime_Tick(object sender, EventArgs e)//controla el tiempo
         {
             // Temp -= 0.01;
             TimeL.Text = "Time: \n" + Temp;
@@ -215,17 +176,17 @@ namespace Game
             this.Refresh();
         }
 
-        public Rectangle RecPlayer1()
+        public Rectangle RecPlayer1()//Rectangulo del jugador1
         {
             return new Rectangle(Player1.Location.X, Player1.Location.Y, 26, 120);
         }
 
-        public Rectangle RecPlayer2()
+        public Rectangle RecPlayer2()//Rectanguo del jugador2
         {
             return new Rectangle(Player2.Location.X, Player2.Location.Y, 26, 120);
         }
 
-        public void bajaVida1()
+        public void bajaVida1()//Pregunta si el jugador1 aun tiene vida, si llega a 0 se declara al otro jugador ganador
         {
             if (Vida1.Value > 1)
                 Vida1.Value -= 10;
@@ -233,7 +194,7 @@ namespace Game
                 MessageBox.Show("Juego Terminado\n Ganador Player2");
         }
 
-        public void bajaVida2()
+        public void bajaVida2()//pregunta por la vida del jugador2
         {
             if (Vida2.Value > 1)
                 Vida2.Value -= 10;
@@ -247,7 +208,7 @@ namespace Game
             this.Refresh();
         }
 
-        private void TimeSalto_Tick(object sender, EventArgs e)
+        private void TimeSalto_Tick(object sender, EventArgs e)//hace saltar
         {
             if(s)
             {
@@ -263,18 +224,12 @@ namespace Game
                 {
                     int salto = Player1.Location.Y + 10;
                     Player1.Location = new Point(Player1.Location.X, salto);
-                }else
-                {
-                    //Player1.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\pg1.png"));
-                    //this.Refresh();
                 }
-
             }
 
             if (s2)
             {
                 Player2.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Game\Images\im15.png"));
-                // this.Refresh();
                 int salto = Player2.Location.Y - 10;
                 Player2.Location = new Point(Player2.Location.X, salto);
                 if (salto <= 100) { s2 = false; }

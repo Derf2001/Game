@@ -55,6 +55,7 @@
   <ItemGroup>
     <Content Include="01.png" />
     <Content Include="Image\03.jpg" />
+    <Content Include="Image\Ball.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

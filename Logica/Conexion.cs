@@ -32,9 +32,10 @@ namespace Logica
             try
             {
                 //Data Source = MIPC\\Derf
-                string comand = "Data Source=" + IP + "; Initial Catalog=" + BD + /*";User Id=" + Cliente + ";Password=" + Password*/"; Integrated Security=True";
+                string comand = "Data Source=" + IP + "; Initial Catalog=" + BD + "; Integrated Security=True"; //Conexion local a la base de datos
+                //string comand = "Data Source=" + IP + "; Initial Catalog=" + BD + ";User Id=" + Cliente + ";Password=" + Password; //Conexion remota a la base de datos
                 con = new SqlConnection(comand);
-                con.Open();
+                con.Open();//se abre la conexion
                 Console.WriteLine("se Conecto " + IP);
             }
             catch (SqlException e)
@@ -44,7 +45,7 @@ namespace Logica
         }
 
         public string Consulta()
-        {
+        { //Leela accion que se va a realizar y lo retorna
             string mov = "";
             try
             {
@@ -58,13 +59,13 @@ namespace Logica
             }
             catch (SqlException e)
             {
-                Console.WriteLine("Ocurreio un Error al Consultar:\n" + e.Message);
+                Console.WriteLine("Ocurrio un Error al Consultar:\n" + e.Message);
             }
             return mov;
         }
 
         public void Update(string Action)
-        {
+        {// Metodo que actualiza el valor de la base de datos
             try
             {
                 SqlCommand sql = new SqlCommand("Update Movimiento set Action='" + Action + "'", con);
@@ -79,7 +80,7 @@ namespace Logica
         public void Insert(string Action)
         {
             try
-            {
+            {// Inserta el movimiento que se hara
                 SqlCommand sql = new SqlCommand("Insert Into Movimiento values ('" + Action + "')", con);
                 sql.ExecuteNonQuery();
             }
@@ -91,7 +92,7 @@ namespace Logica
 
         public void Delete()
         {
-            try
+            try// elimina el movimiento
             {
                 SqlCommand sql = new SqlCommand("Delete Movimiento ", con);
                 sql.ExecuteNonQuery();

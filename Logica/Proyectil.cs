@@ -14,7 +14,6 @@ namespace Logica
     public class Proyectil:PictureBox
     {
         Game.Form1 vista;
-        //Point ubicacion;
         int X, Y;
         Thread Tra;
 
@@ -24,24 +23,16 @@ namespace Logica
             this.X = X;
             this.Y = Y;
 
-            //Console.WriteLine(Path.GetFullPath(@"..\..\..\Logica\01.png"));
-            this.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Logica\01.png"));
+            this.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Logica\Image\Ball.png"));
             this.Location = new Point(X, Y);
             this.Size = new Size(10, 10);
             this.SizeMode = PictureBoxSizeMode.StretchImage;
-            //this.pro.TabIndex = 3;
-            //this.TabStop = false;
 
             Tra = new Thread(Trayectoria);
             Tra.Start();
             this.vista.Controls.Add(this);
+            this.BringToFront();
         }
-
-        /*public PictureBox Devolver()
-        {
-            return pro;
-        }*/
-
         
         public void Trayectoria()
         {
@@ -71,11 +62,6 @@ namespace Logica
             return vista.RecPlayer2().IntersectsWith(RecObs());
 
         }
-        /*public Boolean bandera2()
-        {
-            pro = v.au.Pro;
-            return pro.RecMisil().IntersectsWith(RecObs());
 
-        }*/
     }
 }

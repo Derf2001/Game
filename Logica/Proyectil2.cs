@@ -23,25 +23,18 @@ namespace Logica
             this.X = X;
             this.Y = Y;
 
-            //Console.WriteLine(Path.GetFullPath(@"..\..\..\Logica\01.png"));
-            this.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Logica\01.png"));
+            this.Image = Image.FromFile(Path.GetFullPath(@"..\..\..\Logica\Image\Ball.png"));
             this.Location = new Point(X, Y);
             this.Size = new Size(10, 10);
             this.SizeMode = PictureBoxSizeMode.StretchImage;
-            //this.pro.TabIndex = 3;
-            //this.TabStop = false;
+
 
             Tra = new Thread(Trayectoria);
             Tra.Start();
             this.vista.Controls.Add(this);
+            this.BringToFront();
         }
 
-        /*public PictureBox Devolver()
-        {
-            return pro;
-        }*/
-
-        
         public void Trayectoria()
         {
             while(true)
